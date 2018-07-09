@@ -17,6 +17,13 @@ yarn-error.log*
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+
 ### STS ###
 .apt_generated
 .classpath
@@ -25,19 +32,14 @@ target/
 .settings
 .springBeans
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
 ### NetBeans ###
-nbproject/private/
+# nbproject/private/
+# nbbuild/
+# nbdist/
+# .nb-gradle/
+
 build/
-nbbuild/
 dist/
-nbdist/
-.nb-gradle/
 log/
 ###activiti###
 .bpmn
