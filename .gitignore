@@ -38,7 +38,7 @@ target/
 # nbdist/
 # .nb-gradle/
 
-build/
+# build/
 dist/
 log/
 ###activiti###
