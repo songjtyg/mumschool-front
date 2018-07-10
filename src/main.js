@@ -17,9 +17,11 @@ import { Field, Button} from 'mint-ui'// 按需引入部分组件
 Vue.component(Button.name, Button)
 Vue.component(Field.name, Field)
 
-import { XButton, XInput } from 'vux'
+import { XButton, XInput,Radio,Checklist} from 'vux'
 Vue.component('x-button', XButton)
 Vue.component('x-input', XInput)
+Vue.component('radio', Radio)
+Vue.component('checklist', Radio)
 
 /* eslint-disable no-new */
 new Vue({
