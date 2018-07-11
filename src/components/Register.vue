@@ -1,12 +1,8 @@
 <template xmlns:style="http://www.w3.org/1999/xhtml">
   <div flex="dir:top main:center cross:center " style="width:100%; height: 42rem; ">
-    <div style="width:80%; height: 10rem; background: white;opacity: 1;" >
-      <!--<group>-->
-      <!--<radio title="title" :selected-label-style="{color: '#FF9900'}" :options="options"></radio>-->
-      <!--</group>-->
-
+    <div style="width:80%; height: 13rem; background: white;opacity: 1;" >
       <group>
-        <checklist  :options="commonList" v-model="radioValue" :max="1" @on-change="change"></checklist>
+         <radio title="title"  :options="options" :selected-label-style="{color: '#FF9900'}" ></radio>
       </group>
     </div>
     <div flex="dir:left main:right cross:center "  style="width:80%; height: 2rem; margin-bottom: 1rem;">
@@ -31,15 +27,15 @@
         options : [{
           icon:require('../assets/images/i-am-doctor.png'),
           key: '001',
-          value: '医生'
+          value: '    我是医生    '
         }, {
           icon: require('../assets/images/i-am-pregnant.png'),
           key: '002',
-          value: '孕妇'
+          value: '    我是孕妇    '
         }, {
           icon: require('../assets/images/i-am-mum.png'),
           key: '003',
-          value: '宝妈'
+          value: '    我是宝妈    '
         }]
       }
     },

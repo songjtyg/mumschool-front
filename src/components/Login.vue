@@ -1,9 +1,9 @@
 <template xmlns:style="http://www.w3.org/1999/xhtml">
   <div flex="dir:top main:center cross:center " style="width:100%; height: 42rem; ">
-      <div style="width:80%; height: 7rem; background: white;opacity: 1;" >
+      <div style="width:80%; height: 9rem; background: white;opacity: 1;" >
         <!--<mt-field label="登录" placeholder="用户名/手机" v-model="username"></mt-field>-->
         <!--<mt-field label="密码" placeholder="请输入密码" type="password" v-modal="password"></mt-field>-->
-        <group title="mask">
+        <group title="">
           <x-input title="用户名/手机" placeholder="请输入用户名/手机" mask="999 9999 9999" v-model="maskValue" :max="13" is-type="china-mobile" style="height: 2rem;"></x-input>
           <x-input title="密码" placeholder="请输入密码" type="password" v-model="password" :min="6" :max="6" @on-change="change" style="height: 2rem;"></x-input>
         </group>

@@ -13,11 +13,12 @@ import axios from 'axios'
 axios.defaults.withCredentials = true // 缺省在调用时带上session
 Vue.prototype.$axios = axios// 其他页面在使用axios的时候直接  this.$axios就可以了
 
-import { Field, Button} from 'mint-ui'// 按需引入部分组件
-Vue.component(Button.name, Button)
-Vue.component(Field.name, Field)
+// import { Field, Button} from 'mint-ui'// 按需引入部分组件
+// Vue.component(Button.name, Button)
+// Vue.component(Field.name, Field)
 
-import { XButton, XInput,Radio,Checklist} from 'vux'
+import { Group,XButton, XInput,Radio,Checklist} from 'vux'
+Vue.component('group', Group)
 Vue.component('x-button', XButton)
 Vue.component('x-input', XInput)
 Vue.component('radio', Radio)

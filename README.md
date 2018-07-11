@@ -40,4 +40,7 @@ npm install --registry=https://registry.npm.taobao.org
 	const webpackConfig = originalConfig
 	 //即将原来的module.exports 改为 const webpackConfig
 	module.exports = vuxLoader.merge(webpackConfig, { plugins: ['vux-ui'] })
+	
+	最后别忘了，在resolve: {
+  extensions: ['.js', '.vue', '.json','.less']里加入.less。???????????
 //安装vux结束/////////////////////////////////////////////////
