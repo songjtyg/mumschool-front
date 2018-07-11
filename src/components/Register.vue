@@ -5,8 +5,8 @@
          <radio title="title"  :options="options" :selected-label-style="{color: '#FF9900'}" ></radio>
       </group>
     </div>
-    <div flex="dir:left main:right cross:center "  style="width:80%; height: 2rem; margin-bottom: 1rem;">
-      <img slot="icon" src="../assets/images/lock.png"  style="width:1.5rem;height:1.5rem"/><a style="color:white;">忘记密码</a>
+    <div flex="dir:left main:left cross:center "  style="width:80%; height: 2rem; margin-bottom: 1rem;">
+      <img slot="icon" src="../assets/images/lock.png"  style="width:1.5rem;height:1.5rem"/><a style="color:white;">已有账号？去登陆</a>
     </div>
     <x-button type="primary" style="width:80%; margin-bottom: 1rem;">提交</x-button>
   </div>

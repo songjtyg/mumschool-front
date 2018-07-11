@@ -44,3 +44,5 @@ npm install --registry=https://registry.npm.taobao.org
 	最后别忘了，在resolve: {
   extensions: ['.js', '.vue', '.json','.less']里加入.less。???????????
 //安装vux结束/////////////////////////////////////////////////
+/////////////vue-cli 解决Invalid Host header/////////////////
+在webpack.dev.conf.js中添加：disableHostCheck: true
