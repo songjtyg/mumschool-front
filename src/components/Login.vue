@@ -13,7 +13,7 @@
         <img slot="icon" src="../assets/images/lock.png"  style="width:1.5rem;height:1.5rem"/><a style="color:white;">忘记密码</a>
       <!--</mt-cell>-->
     </div>
-      <x-button type="primary" style="width:80%; margin-bottom: 1rem;">登录</x-button>
+      <x-button type="primary" :disabled="disable001" @click.native="processButton001" style="width:80%; margin-bottom: 1rem;">登录</x-button>
       <x-button type="primary" style="width:80%; margin-bottom: 1rem;">新用户注册</x-button>
   </div>
 </template>
@@ -28,7 +28,8 @@
     },
     data () {
       return {
-        msg: '妈妈校园'
+        msg: '妈妈校园',
+        disable001:false
       }
     },
     mounted: function () {
@@ -36,11 +37,12 @@
       bus.$emit('appointmentOpened', '1');
     },
     methods:{
-      registerType () {
-        this.$router.push({path: '/registerType'})
-      },
-      testCall(){
-        this.$axios.post('http://mumschool.ngrok.xiaomiqiu.cn/mumschool/menu/login', {a:'1'} ,{
+      processButton001 () {
+        //alert("11")
+        //this.submit001 = 'processing'
+
+
+        this.$axios.post('http://mumschool.ngrok.xiaomiqiu.cn/mumschool/menu/test', {a:'1'} ,{
             headers: {
               "Content-Type": "application/json;charset=utf-8"
             }
@@ -53,7 +55,11 @@
           // 这里是处理错误的回调
           console.log(response)
         });
-      }
+        this.disable001 = false;
+      },
+      registerType () {
+        this.$router.push({path: '/registerType'})
+      },
     }
   }
 </script>
