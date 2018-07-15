@@ -9,6 +9,7 @@ import RegisterDoctor from '@/components/RegisterDoctor'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',//songjt20180715
   routes: [
     {
       path: '/',

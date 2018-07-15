@@ -17,4 +17,12 @@ axios({
 })
 ++图片路径解决+++++++++++++++++++++++++++++++++++++++++++++++++++
 https://www.cnblogs.com/xiaojingyuan/p/7080768.html
-++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++安装jsonp跨域请求微信授权++++++++妹用++++++++++++++++++++++++++++++++++++++++++++
+1、安装vue jsonp
+npm i -S vue-jsonp
+2、在main.js中导入vue-jsonp
+import VueJsonp from 'vue-jsonp'
+通过use方法，挂载到vue中
+vue.use(VueJsonp)
+++++++++++++++++++++++++++++++++++++++++++++++++++
+mode: 'history'

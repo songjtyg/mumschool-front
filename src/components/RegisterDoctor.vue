@@ -6,7 +6,7 @@
         <x-input title="密码" placeholder="请输入密码" type="password" v-model="password" :min="6" :max="6" @on-change="change" style="height: 2rem;"></x-input>
         <x-input title="单位" placeholder="" :min="2" :max="5"></x-input>
         <x-input title="科室" placeholder="" :min="2" :max="5"></x-input>
-        <x-input title="手机号码" name="mobile" placeholder="请输入手机号码" keyboard="number" is-type="china-mobile"></x-input>
+        <x-input title="手机号码" name="mobile" placeholder="请输入手机号码" keyboard="number" is-type="china-mobile"  mask="999 9999 9999" ></x-input>
         <x-input title="验证码" class="weui-vcode">
           <x-button slot="right" type="primary" mini style="width:9rem">发送验证码</x-button>
         </x-input>
