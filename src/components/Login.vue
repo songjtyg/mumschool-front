@@ -4,7 +4,7 @@
         <!--<mt-field label="登录" placeholder="用户名/手机" v-model="username"></mt-field>-->
         <!--<mt-field label="密码" placeholder="请输入密码" type="password" v-modal="password"></mt-field>-->
         <group title="">
-          <x-input title="用户名/手机" placeholder="请输入用户名/手机" v-model="loginName" :max="13" style="height: 2rem;"></x-input>
+          <x-input title="用户名/手机" placeholder="请输入用户名/手机" v-model="loginWord" :max="13" style="height: 2rem;"></x-input>
           <x-input title="密码" placeholder="请输入密码" type="password" v-model="password" :min="6" :max="6" @on-change="change" style="height: 2rem;"></x-input>
         </group>
       </div>
@@ -13,8 +13,8 @@
         <img slot="icon" src="../assets/images/lock.png"  style="width:1.5rem;height:1.5rem"/><a style="color:white;">忘记密码</a>
       <!--</mt-cell>-->
     </div>
-      <x-button type="primary" :disabled="disable001" @click.native="processButton001" style="width:85%; margin-bottom: 1rem;">登录</x-button>
-      <x-button type="primary" style="width:85%; margin-bottom: 1rem;">新用户注册</x-button>
+      <x-button type="primary" :disabled="disable001" @click.native="login" style="width:85%; margin-bottom: 1rem;">登录</x-button>
+      <x-button type="primary"  @click.native="toRegister" style="width:85%; margin-bottom: 1rem;">新用户注册</x-button>
   </div>
 </template>
 
@@ -30,12 +30,12 @@
       return {
         msg: '妈妈校园',
         disable001:false,
-        loginName:"",
+        loginWord:"",
         password:""
       }
     },
     methods:{
-      processButton001 () {debugger;
+      login () {debugger;
         //alert("11")
         //this.submit001 = 'processing'
 
@@ -60,26 +60,28 @@
 //          }
 //        });
         let params = {
-          loginName : this.loginName,
+          loginWord : this.loginWord,
           password  : this.password
         }
-        this.$axios.post('http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/login',params).then(function(response) {
+        var that = this;
+        //this.$axios.post('http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/login',params).then(function(response) {
+        this.$axios.post('http://localhost:80/weixinUser/login',params).then(function(response) {
           let logined =  response.data;
           alert(logined)
           if (logined){
-              this.$router.push({name: 'RegisterDoctor'})
+              that.$router.push({name: 'RegisterDoctor'})
           }else{
             alert("用户名密码错误！");
           }
         }).catch(function(response) {
 
           // 这里是处理错误的回调
-          alert.log(response)
+          console.info(response)
         });
         this.disable001 = false;
       },
-      registerType (){
-        this.$router.push({path: '/registerType'})
+      toRegister (){
+        this.$router.push({name: 'Register'})
       }
     },
     mounted() {
