@@ -3,7 +3,7 @@
     <div style="width:85%; height: 25rem; background: white;opacity: 1;" >
       <group title="">
         <x-input title="姓名" name="username" v-model="registerDto.userName" placeholder="请输入姓名" is-type="china-name"></x-input>
-        <x-input title="密码" v-model="registerDto.password" placeholder="请输入密码" type="password" v-model="password" :min="6" :max="6" @on-change="change" style="height: 2rem;"></x-input>
+        <x-input title="密码" v-model="registerDto.password" placeholder="请输入密码" type="password" :min="6" :max="6" @on-change="change" style="height: 2rem;"></x-input>
         <x-input title="单位" v-model="registerDto.hospital" placeholder="请输入单位" :min="2" :max="5"></x-input>
         <x-input title="科室"  v-model="registerDto.department" placeholder="请输入科室" :min="2" :max="5"></x-input>
         <x-input title="手机号码" name="registerDto.mobile" placeholder="请输入手机号" keyboard="number" is-type="china-mobile"  mask="999 9999 9999" ></x-input>

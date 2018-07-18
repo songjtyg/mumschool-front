@@ -13,7 +13,7 @@
         <img slot="icon" src="../assets/images/lock.png"  style="width:1.5rem;height:1.5rem"/><a style="color:white;">忘记密码</a>
       <!--</mt-cell>-->
     </div>
-      <x-button type="primary" :disabled="disable001" @click.native="login" style="width:85%; margin-bottom: 1rem;">登录</x-button>
+      <x-button type="primary" :disabled="disabledClickLoginButton" @click.native="login" style="width:85%; margin-bottom: 1rem;">登录</x-button>
       <x-button type="primary"  @click.native="toRegister" style="width:85%; margin-bottom: 1rem;">新用户注册</x-button>
   </div>
 </template>
@@ -29,7 +29,7 @@
     data () {
       return {
         msg: '妈妈校园',
-        disable001:false,
+        disabledClickLoginButton:false,
         loginWord:"",
         password:""
       }
@@ -60,12 +60,10 @@
 //          }
 //        });
         let params = {
-          loginWord : this.loginWord,
-          password  : this.password
+          loginWord:this.loginWord,
+          password:this.password
         }
-        var that = this;
-        //this.$axios.post('http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/login',params).then(function(response) {
-        this.$axios.post('http://localhost:80/weixinUser/login',params).then(function(response) {
+        this.$axios.post('http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/login',params).then(function(response) {
           let logined =  response.data;
           alert(logined)
           if (logined){
@@ -78,7 +76,7 @@
           // 这里是处理错误的回调
           console.info(response)
         });
-        this.disable001 = false;
+        this.disabledClickLoginButton = false;
       },
       toRegister (){
         this.$router.push({name: 'Register'})
@@ -94,20 +92,20 @@
       this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinMenu/ifOpenid`).then(function(response) {
         let hasOpenid = response.data;
         if (hasOpenid){
-//          alert("有openid了")
+          alert("有openid了")
           return
         }else{
           let code = that.$route.query.code
           if (code) {
-//            alert('有code:'+code)
+            alert('有code:'+code)
             that.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinMenu/setOpenid/${code}`).then(function(response) {
-//              alert('设置openid成功：'+response.data)
+              alert('设置openid成功：'+response.data)
             }).catch(function(response) {
               // 这里是处理错误的回调
               console.log(response)
             });
           }else{
-//            alert('跳转微信服务器获取code')
+            alert('跳转微信服务器获取code')
             window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx33c840e0ffad7c2e&redirect_uri='
               +encodeURIComponent('http://mumschool-front.ngrok.xiaomiqiu.cn/login')+'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
           }
