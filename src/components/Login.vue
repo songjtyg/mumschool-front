@@ -1,10 +1,10 @@
 <template xmlns:style="http://www.w3.org/1999/xhtml">
-  <div flex="dir:top main:center cross:center " style="width:100%; height: 42rem; ">
+  <div flex="dir:top main:center cross:center " class="page-wrap-normal" id="aaa">
       <div style="width:85%; height: 10rem; background: white;opacity: 1;" >
         <!--<mt-field label="登录" placeholder="用户名/手机" v-model="username"></mt-field>-->
         <!--<mt-field label="密码" placeholder="请输入密码" type="password" v-modal="password"></mt-field>-->
         <group title="">
-          <x-input title="用户名/手机" placeholder="请输入用户名/手机" v-model="loginWord" :max="13" style="height: 2rem;"></x-input>
+          <x-input title="用户名/手机" placeholder="请输入用户名/手机" v-model="loginWord" :max="13" style="height: 2rem;" @click.native="isAndroid"></x-input>
           <x-input title="密码" placeholder="请输入密码" type="password" v-model="password" :min="6" :max="6" @on-change="change" style="height: 2rem;"></x-input>
         </group>
       </div>
@@ -35,6 +35,17 @@
       }
     },
     methods:{
+      isAndroid(){
+        if(/Android [4-6]/.test(navigator.appVersion)) {
+        window.addEventListener("resize", function() {
+          if(document.activeElement.tagName=="INPUT" || document.activeElement.tagName=="TEXTAREA") {
+            window.setTimeout(function() {
+              document.activeElement.scrollIntoViewIfNeeded();
+            },0);
+          }
+        })
+      }
+      },
       login () {debugger;
         //alert("11")
         //this.submit001 = 'processing'
@@ -82,7 +93,28 @@
       }
     },
     mounted() {
-      bus.$emit('appointmentOpened', '1');
+     // bus.$emit('appointmentOpened', '1');
+        this.clientHeight = document.documentElement.clientHeight;
+        const that = this;
+        // 安卓手机键盘吊起挡住输入框
+
+        window.onresize = function() {
+
+          if(document.documentElement.clientHeight < that.clientHeight) {
+            // scrollVal为负值
+            let scrollVal = document.documentElement.clientHeight-that.clientHeight;
+            //let scrollVal = -50;//-5rem;
+            document.getElementById("aaa").className = 'page-wrap-top';;
+            //$(".page-wrap").css("marginTop",scrollVal);
+            //$(".bottom-create").hide();
+          }else {
+            document.getElementById("aaa").className = 'page-wrap-normal';;
+            //$(".page-wrap").css("marginTop",0);
+            //$(".bottom-create").show();
+          }
+
+        };
+
     },
     //created() {
     beforeCreate() {
@@ -117,5 +149,14 @@
   }
 </script>
 <style scoped>
-
+  .page-wrap-normal{
+    width:100%;
+    height: 42rem;
+    margin-top: 0px;
+  }
+  .page-wrap-top{
+    width:100%;
+    height: 42rem;
+    margin-top: -50px;
+  }
  </style>

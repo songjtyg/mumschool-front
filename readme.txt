@@ -26,3 +26,6 @@ import VueJsonp from 'vue-jsonp'
 vue.use(VueJsonp)
 ++++++++++++++++++++++++++++++++++++++++++++++++++
 mode: 'history'
+++++++++++++++++++++++++++++++++++++++++++++++
+vue-cli 单页面手机应用input点击手机端虚拟键盘弹出盖住input
+https://blog.csdn.net/happyElina/article/details/79900663
