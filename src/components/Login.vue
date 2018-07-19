@@ -59,22 +59,21 @@
 //            location.href='www.sina.com';
 //          }
 //        });
+        var that = this
         let params = {
           loginWord:this.loginWord,
           password:this.password
         }
-        this.$axios.post('http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/login',params).then(function(response) {
-          let logined =  response.data;
-          alert(logined)
-          if (logined){
-              that.$router.push({name: 'RegisterDoctor'})
-          }else{
-            alert("用户名密码错误！");
-          }
-        }).catch(function(response) {
-
+        this.$axios.post('http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/login',params)
+          .then(function(response) {
+              if (response.data.success){
+                 that.$router.push({name: 'RegisterDoctor'})
+              }else{
+                alert(JSON.stringify(response.data));
+              }
+          }).catch(function(response) {
           // 这里是处理错误的回调
-          console.info(response)
+          alert(JSON.stringify(response.data));
         });
         this.disabledClickLoginButton = false;
       },
@@ -89,23 +88,23 @@
     beforeCreate() {
       debugger
       var that = this;
-      this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinMenu/ifOpenid`).then(function(response) {
+      this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/ifOpenid`).then(function(response) {
         let hasOpenid = response.data;
         if (hasOpenid){
-          alert("有openid了")
+          //alert("有openid了")
           return
         }else{
           let code = that.$route.query.code
           if (code) {
-            alert('有code:'+code)
-            that.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinMenu/setOpenid/${code}`).then(function(response) {
-              alert('设置openid成功：'+response.data)
+            //alert('有code:'+code)
+            that.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/setOpenid/${code}`).then(function(response) {
+              //alert('设置openid成功：'+response.data)
             }).catch(function(response) {
               // 这里是处理错误的回调
               console.log(response)
             });
           }else{
-            alert('跳转微信服务器获取code')
+            //alert('跳转微信服务器获取code')
             window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx33c840e0ffad7c2e&redirect_uri='
               +encodeURIComponent('http://mumschool-front.ngrok.xiaomiqiu.cn/login')+'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
           }
