@@ -18,7 +18,6 @@
     </div>
       <x-button type="primary" :disabled="disabledClickLoginButton" @click.native="login" style="width:85%; margin-bottom: 1rem;">登录</x-button>
       <x-button id="asd" type="primary"  @click.native="toRegister" style="width:85%; margin-bottom: 1rem;">新用户注册</x-button>
-    <input type="text" placeholder="Type here..."></input>
   </div>
 </template>
 
@@ -39,17 +38,18 @@
       }
     },
     methods:{
-//      isAndroid(){
-//        if(/Android [4-6]/.test(navigator.appVersion)) {
-//          window.addEventListener("resize", function() {
-//              if(document.activeElement.tagName=="INPUT" || document.activeElement.tagName=="TEXTAREA") {
-//                window.setTimeout(function() {
-//                  document.activeElement.scrollIntoViewIfNeeded();
-//                },0);
-//              }
-//          })
-//        }
-//      },
+      //移动端Android软键盘遮住输入框解决！输入框添加@click="isAndroid"
+      isAndroid(){
+        if(/Android [4-6]/.test(navigator.appVersion)) {
+          window.addEventListener("resize", function() {
+              if(document.activeElement.tagName=="INPUT" || document.activeElement.tagName=="TEXTAREA") {
+                window.setTimeout(function() {
+                  document.activeElement.scrollIntoViewIfNeeded();
+                },0);
+              }
+          })
+        }
+      },
       login () {debugger;
         //alert("11")
         //this.submit001 = 'processing'
@@ -95,25 +95,8 @@
       toRegister (){
         this.$router.push({name: 'Register'})
       },
-
-      isAndroid (event) {
-        var that = this;
-        var target = document.getElementById("asd")//.scrollIntoView(true);
-        //var target = event.currentTarget;
-        //var target = this;
-        setTimeout(function(){
-          that.loginWord = "123"
-          //target.scrollIntoView(false);
-          //target.scrollIntoViewIfNeeded();
-          target.scrollIntoView(true);
-          //window.scrollTo(0,target.scrollHeight);
-          //document.activeElement.scrollIntoViewIfNeeded();
-          that.loginWord = "456"
-        },400);
-      }
     },
     mounted() {
-//     // bus.$emit('appointmentOpened', '1');
 //        this.clientHeight = document.documentElement.clientHeight;
 //        const that = this;
 //        // 安卓手机键盘吊起挡住输入框
@@ -128,7 +111,6 @@
 //            document.getElementById("aaa").style.marginTop = 0+'px';
 //          }
 //        };
-
     },
     //created() {
     beforeCreate() {

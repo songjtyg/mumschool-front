@@ -23,7 +23,7 @@ export default {
   @import './assets/css/reset.css'; /*引入公共样式*/
   @import './assets/css/flex.css'; /*引入公共样式*/
 #app {
-  position:fixed;
+  /*position:fixed;*/
   top: 0;
   left: 0;
   width:100%;
