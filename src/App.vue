@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <cap></cap>
-    <advertisement></advertisement>
     <router-view/>
   </div>
 </template>
@@ -13,7 +12,6 @@ export default {
   name: 'App',
   components:{
     'cap': cap,
-    'advertisement':advertisement
   }
 }
 

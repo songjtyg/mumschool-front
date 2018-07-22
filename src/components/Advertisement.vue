@@ -7,7 +7,7 @@
 
 <script>
   export default {
-    name: 'Cap',
+    name: 'Advertisement',
     data () {
       return {
         msg: '妈妈校园'

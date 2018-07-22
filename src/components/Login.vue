@@ -1,15 +1,15 @@
 <template xmlns:style="http://www.w3.org/1999/xhtml">
   <div flex="dir:top main:center cross:center " class="page-wrap-normal" id="aaa">
-    <div style="height:5rem;">daf</div>
+      <advertisement></advertisement>
       <div style="width:85%; height: 10rem; background: white;opacity: 1;" >
-        <!--<mt-field label="登录" placeholder="用户名/手机" v-model="username"></mt-field>-->
-        <!--<mt-field label="密码" placeholder="请输入密码" type="password" v-modal="password"></mt-field>-->
+            <!--<mt-field label="登录" placeholder="用户名/手机" v-model="username"></mt-field>-->
+            <!--<mt-field label="密码" placeholder="请输入密码" type="password" v-modal="password"></mt-field>-->
 
-        <group title="">
-          <x-input  title="用户名/手机" placeholder="请输入用户名/手机" v-model="loginWord" :max="13" style="height: 2rem;" @click="isAndroid"></x-input>
-          <x-input  title="密码" placeholder="请输入密码" type="password" v-model="password" :min="6" :max="6" @on-change="change" @click.native="isAndroid" style="height: 2rem;"></x-input>
-        </group>
-  </div>
+            <group title="">
+              <x-input  title="用户名/手机" placeholder="请输入用户名/手机" v-model="loginWord" :max="13" style="height: 2rem;" @click="isAndroid"></x-input>
+              <x-input  title="密码" placeholder="请输入密码" type="password" v-model="password" :min="6" :max="6" @on-change="change" @click.native="isAndroid" style="height: 2rem;"></x-input>
+            </group>
+      </div>
 
     <div flex="dir:left main:right cross:center "  style="width:85%; height: 2rem; margin-bottom: 1rem;">
       <!--<mt-cell title="标题文字" width="0.5rem" height="0.5rem">-->
@@ -24,10 +24,12 @@
 <script>
 
   import  {bus}  from '../bus.js'
+  import Advertisement from './Advertisement'
   export default {
     name: 'Login',
     components:{
-      bus
+      'advertisement':Advertisement,
+      'bus': bus,
     },
     data () {
       return {

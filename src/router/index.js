@@ -6,6 +6,8 @@ import Advertisement from '@/components/Advertisement'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import RegisterDoctor from '@/components/RegisterDoctor'
+import ScanToExam from '@/components/ScanToExam'
+import Question from '@/components/Question'
 Vue.use(Router)
 
 export default new Router({
@@ -42,6 +44,18 @@ export default new Router({
       path: '/registerDoctor',
       name: 'RegisterDoctor',
       component: RegisterDoctor
+      // component: () => import('@/components/RegisterDoctor')
+    },
+    {
+      path: '/scanToExam',
+      name: 'ScanToExam',
+      component: ScanToExam
+      // component: () => import('@/components/RegisterDoctor')
+    },
+    {
+      path: '/question',
+      name: 'Question',
+      component: Question
       // component: () => import('@/components/RegisterDoctor')
     },
   ]
