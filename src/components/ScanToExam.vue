@@ -62,15 +62,77 @@
             scanType: ["qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
             success: function (res) {
               alert("扫描结果："+JSON.stringify(res));
-              //window.location.href = result;//因为我这边是扫描后有个链接，然后跳转到该页面
+              //window.location.href = res.resultStr;//跳转到该页面///////////////////////////
+
+//              var that = this;
+//              this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/ifOpenid`).then(function(response) {
+//                let hasOpenid = response.data;
+//                if (hasOpenid){
+//                  //alert("有openid了")
+//                  return
+//                }else{
+//                  let code = that.$route.query.code
+//                  if (code) {
+//                    //alert('有code:'+code)
+//                    that.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/setOpenid/${code}`).then(function(response) {
+//                      //alert('设置openid成功：'+response.data)
+//                    }).catch(function(response) {
+//                      // 这里是处理错误的回调
+//                      console.log(response)
+//                    });
+//                  }else{
+//                    //alert('跳转微信服务器获取code')
+//                    window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx33c840e0ffad7c2e&redirect_uri='
+//                      +encodeURIComponent('http://mumschool-front.ngrok.xiaomiqiu.cn/scanToExam')+'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
+//                  }
+//                }
+//              }).catch(function(response) {
+//                // 这里是处理错误的回调
+//                console.log(response)
+//              });
+
+
+              //if (resultStr)
               let params = {
-                beginExam: true
+                beginExam: true,
+                questionBankId:res.resultStr
+
               }
               that.$router.push({name: 'Question',params:params})
             }
           });
         });
       }
+    },
+    //created() {
+    beforeCreate() {
+      debugger;
+      var that = this;
+      this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/ifOpenid`).then(function(response) {
+        let hasOpenid = response.data;
+        if (hasOpenid){
+          //alert("有openid了")
+          return
+        }else{
+          let code = that.$route.query.code
+          if (code) {
+            //alert('有code:'+code)
+            that.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/setOpenid/${code}`).then(function(response) {
+              //alert('设置openid成功：'+response.data)
+            }).catch(function(response) {
+              // 这里是处理错误的回调
+              console.log(response)
+            });
+          }else{
+            //alert('跳转微信服务器获取code')
+            window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx33c840e0ffad7c2e&redirect_uri='
+              +encodeURIComponent('http://mumschool-front.ngrok.xiaomiqiu.cn/scanToExam')+'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
+          }
+        }
+      }).catch(function(response) {
+        // 这里是处理错误的回调
+        console.log(response)
+      });
     }
   }
 </script>
