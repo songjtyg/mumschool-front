@@ -60,45 +60,36 @@
           that.$wechat.scanQRCode({
             needResult: 1,        // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
             scanType: ["qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
-            success: function (res) {
-              alert("扫描结果："+JSON.stringify(res));
-              //window.location.href = res.resultStr;//跳转到该页面///////////////////////////
-
-//              var that = this;
-//              this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/ifOpenid`).then(function(response) {
-//                let hasOpenid = response.data;
-//                if (hasOpenid){
-//                  //alert("有openid了")
-//                  return
-//                }else{
-//                  let code = that.$route.query.code
-//                  if (code) {
-//                    //alert('有code:'+code)
-//                    that.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/setOpenid/${code}`).then(function(response) {
-//                      //alert('设置openid成功：'+response.data)
-//                    }).catch(function(response) {
-//                      // 这里是处理错误的回调
-//                      console.log(response)
-//                    });
-//                  }else{
-//                    //alert('跳转微信服务器获取code')
-//                    window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx33c840e0ffad7c2e&redirect_uri='
-//                      +encodeURIComponent('http://mumschool-front.ngrok.xiaomiqiu.cn/scanToExam')+'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
-//                  }
-//                }
-//              }).catch(function(response) {
-//                // 这里是处理错误的回调
-//                console.log(response)
-//              });
-
-
-              //if (resultStr)
-              let params = {
-                beginExam: true,
-                questionBankId:res.resultStr
-
+            success: function (qrRes) {
+              alert("扫描结果："+JSON.stringify(qrRes));
+              //window.location.href = qrRes.resultStr;//跳转到该页面///////////////////////////
+              var reg=/^\d+\.\w+$/;   /*定义验证表达式*/
+              if (reg.test(str) == null) {
+                alert("二维码有误")
+                return
               }
-              that.$router.push({name: 'Question',params:params})
+              let params ={
+                questionBankId : qrRes.split(":")[0],
+                qrVerifyCode : qrRes.split(":")[1]
+              }
+              var that = this;
+              this.$axios.post(`http://mumschool.ngrok.xiaomiqiu.cn/exam/begin`,params).then(function(response) {
+                let resp = response.data;
+                if (resp.success){
+                  that.question = resp.data.question
+
+                  let params2 = {
+                    beginExam: true,
+                    question: this.question
+
+                  }
+                  that.$router.push({name: 'Question',params:params2})
+                  return
+                }
+              }).catch(function(response) {
+                // 这里是处理错误的回调
+                console.log(response)
+              });
             }
           });
         });
