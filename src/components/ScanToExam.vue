@@ -63,17 +63,18 @@
             success: function (qrRes) {
               alert("扫描结果："+JSON.stringify(qrRes));
               //window.location.href = qrRes.resultStr;//跳转到该页面///////////////////////////
-              var reg=/^\d+\.\w+$/;   /*定义验证表达式*/
-              if (reg.test(str) == null) {
-                alert("二维码有误")
-                return
-              }
+//              var reg=/^\d+\.\w+$/;   /*定义验证表达式*/
+//              if (reg.test(str) == null) {
+//                alert("二维码有误")
+//                return
+//              }
               let params ={
-                questionBankId : qrRes.split(":")[0],
-                qrVerifyCode : qrRes.split(":")[1]
+                questionBankId : qrRes.resultStr.split(".")[0],
+                qrVerifyCode : qrRes.resultStr.split(".")[1]
               }
-              var that = this;
-              this.$axios.post(`http://mumschool.ngrok.xiaomiqiu.cn/exam/begin`,params).then(function(response) {
+              alert("扫描结果："+JSON.stringify(params));
+              that.$axios.post(`http://mumschool.ngrok.xiaomiqiu.cn/exam/begin`,params).then(function(response) {
+                alert(JSON.stringify(response))
                 let resp = response.data;
                 if (resp.success){
                   that.question = resp.data.question
@@ -88,7 +89,7 @@
                 }
               }).catch(function(response) {
                 // 这里是处理错误的回调
-                console.log(response)
+                alert(JSON.stringify(response))
               });
             }
           });
