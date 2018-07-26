@@ -77,12 +77,7 @@
                 alert(JSON.stringify(response))
                 let resp = response.data;
                 if (resp.success){
-
-                  let params2 = {
-                    beginExam: true,
-                    question: resp.data.question
-
-                  }
+                  let params2 = resp.data.question
                   that.$router.push({name: 'Question',params:params2})
                   return
                 }

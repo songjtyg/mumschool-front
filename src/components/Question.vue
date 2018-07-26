@@ -8,10 +8,10 @@
       <div style="width:100%; height: 10rem; text-align:left;margin-bottom: 1rem; padding:0 2rem;opacity:1;background:white;" >
         <h6 style="float:left;">题目：</h6>
         <h6 style="float:right;">1/30</h6>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{question.content}}</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{questionBO.content}}</p>
       </div>
       <div style="width:100%; height: 25rem; text-align:left;margin-bottom: 1rem; padding:0 2rem;opacity:1;background:white;" >
-        <checklist ref="demoObject" :title="'选择答案'" :options="questionOptionBOs" v-model="objectListValue" @on-change="change"></checklist>
+        <checklist ref="demoObject" :title="'选择答案'" :options="questionBO.questionOptionBOs" v-model="objectListValue" @on-change="change"></checklist>
       </div>
       <x-button type="primary"  @click.native="nextQuestion" style="width:80%;height: 4rem; margin-top: 2rem;">下一题</x-button>
     </div>
@@ -23,71 +23,75 @@
     name: 'Question',
     components:{
     },
-
+    props:[],
     data () {
       return {
-        exam_id:null,
-        questin_bank_Id:null,
-        question:{
+        examId:null,
+        questionBO:{
+          questinBankId:null,
           id:null,
           type:null,
           content:null,
           score:null,
-          examAnswerPO:{
-            exam_id:null,
-            questin_bank_Id:null,
-            question_id:null,
-            choices:[],
+          examBO:{
+            id:null,
+            userId:null,
+            questionBankId:null,
+            correctNum:null,
             score:null,
-            correct:null
+            beginTime:null,
+            endTime:null,
           },
-          questionOptionBOs:[]
+          examAnswerBO:{
+            examId:null,
+            questinBankId:null,
+            questionId:null,
+            choices:null,
+            score:null
+          },
+          questionOptionBOs:[{key: '1', value: '001 value'}]
         },
-        questionOptionBOs:[{key: '1', value: '001 value'}],
-
         objectListValue:null
       }
     },
     mounted: function () {debugger
-      let paramsQuestionId = this.$route.params.questionId;
-      paramsQuestionId = paramsQuestionId ? paramsQuestionId : 0;
-      params
+      this.questionBO = this.$route.params.questionBO;
       var that = this;
-      this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/question/saveAndNext`,params)
-        .then(function(response) {
-          if (response.data.success){
-            that.question = response.data;
-            //查询
-            this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/questionChoice/questionId/${this.questionId}`)
-              .then(function(response) {debugger
-                let choices = response.data
-                let options = choices.map(function(item){
-                  return{ key:item.id,
-                    letter:item.letter,
-                    value:item.letter+'  '+item.content,
-                    correct:item.correct}
-                });
-                that.questionOptionBOs = options;
-              })
-          }else{//如果查询不到下一个问题，则认为考试结束，调用计算成绩接口
-            this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/${this.examId}`)
-              .then(function(response) {debugger
-                if (response.data.success){
-                  if (response.data.data.score >= 90){
-                    this.$router.push({name: 'ExamPass',params: {questionId: this.examId }})
-                  }else if (response.data.data.score < 90){
-                    this.$router.push({name: 'ExamNoPass',params: {questionId: this.examId }})
-                  }
-                }
-              })
-          }
-
-        })
+//      this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/question/saveAndNext`,params)
+//        .then(function(response) {
+//          if (response.data.success){
+//            that.question = response.data;
+//            //查询
+//            this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/questionChoice/questionId/${this.questionId}`)
+//              .then(function(response) {debugger
+//                let choices = response.data
+//                let options = choices.map(function(item){
+//                  return{ key:item.id,
+//                    letter:item.letter,
+//                    value:item.letter+'  '+item.content,
+//                    correct:item.correct}
+//                });
+//                that.questionOptionBOs = options;
+//              })
+//          }else{//如果查询不到下一个问题，则认为考试结束，调用计算成绩接口
+//            this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/${this.examId}`)
+//              .then(function(response) {debugger
+//                if (response.data.success){
+//                  if (response.data.data.score >= 90){
+//                    this.$router.push({name: 'ExamPass',params: {questionId: this.examId }})
+//                  }else if (response.data.data.score < 90){
+//                    this.$router.push({name: 'ExamNoPass',params: {questionId: this.examId }})
+//                  }
+//                }
+//              })
+//          }
+//
+//        })
 
     },
     methods : {
       nextQuestion : function(){
-        this.$router.push({name: 'Question',params: {questionId: this.questionId }})
+        this.$router.push({name: 'Question',params: this.questionBO.examAnswerBO})
       },
       change : function() {
         return null
