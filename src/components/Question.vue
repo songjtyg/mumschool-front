@@ -11,7 +11,7 @@
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{question.content}}</p>
       </div>
       <div style="width:100%; height: 25rem; text-align:left;margin-bottom: 1rem; padding:0 2rem;opacity:1;background:white;" >
-        <checklist ref="demoObject" :title="'选择答案'" :options="questionChoices" v-model="objectListValue" @on-change="change"></checklist>
+        <checklist ref="demoObject" :title="'选择答案'" :options="questionOptionBOs" v-model="objectListValue" @on-change="change"></checklist>
       </div>
       <x-button type="primary"  @click.native="nextQuestion" style="width:80%;height: 4rem; margin-top: 2rem;">下一题</x-button>
     </div>
@@ -33,16 +33,18 @@
           type:null,
           content:null,
           score:null,
+          examAnswerPO:{
+            exam_id:null,
+            questin_bank_Id:null,
+            question_id:null,
+            choices:[],
+            score:null,
+            correct:null
+          },
+          questionOptionBOs:[]
         },
-        questionChoices:[{key: '1', value: '001 value'}],
-        examAnswer:{
-          exam_id:null,
-          questin_bank_Id:null,
-          question_id:null,
-          choices:[],
-          score:null,
-          correct:null
-        },
+        questionOptionBOs:[{key: '1', value: '001 value'}],
+
         objectListValue:null
       }
     },
@@ -65,7 +67,7 @@
                     value:item.letter+'  '+item.content,
                     correct:item.correct}
                 });
-                that.questionChoices = options;
+                that.questionOptionBOs = options;
               })
           }else{//如果查询不到下一个问题，则认为考试结束，调用计算成绩接口
             this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/${this.examId}`)
