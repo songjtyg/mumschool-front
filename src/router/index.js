@@ -8,6 +8,8 @@ import Register from '@/components/Register'
 import RegisterDoctor from '@/components/RegisterDoctor'
 import ScanToExam from '@/components/ScanToExam'
 import Question from '@/components/Question'
+import ExamPass from '@/components/ExamPass'
+import ExamNoPass from '@/components/ExamNopass'
 Vue.use(Router)
 
 export default new Router({
@@ -56,6 +58,18 @@ export default new Router({
       path: '/question',
       name: 'Question',
       component: Question
+      // component: () => import('@/components/RegisterDoctor')
+    },
+    {
+      path: '/examPass',
+      name: 'ExamPass',
+      component: ExamPass
+      // component: () => import('@/components/RegisterDoctor')
+    },
+    {
+      path: '/examNoPass',
+      name: 'ExamNoPass',
+      component: ExamNoPass
       // component: () => import('@/components/RegisterDoctor')
     },
   ]

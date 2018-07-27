@@ -1,17 +1,17 @@
 <template xmlns:style="http://www.w3.org/1999/xhtml">
   <div flex="dir:top main:left cross:center " style="width:100%; height: 55rem; margin-top: 1rem;opacity: 1; ">
     <div  style="width:100%; height: 55rem; background-color: gainsboro; font-size:1.6rem;line-height: 2rem;text-align:center; ">
-      <div style="width:100%; height: 5rem; text-align:left;margin-bottom: 1rem; padding:0 2rem;opacity:1;background:white;" >
+      <div style="width:100%; height: 5rem; text-align:left;margin-bottom: 1rem; padding:0 0rem;opacity:1;background:white;" >
         <h6 style="text-align:center;">考试简介</h6>
         <p>这次考试以选择题为主,祝您考出好成绩！</p>
       </div>
-      <div style="width:100%; height: 10rem; text-align:left;margin-bottom: 1rem; padding:0 2rem;opacity:1;background:white;" >
+      <div style="width:100%; height: 10rem; text-align:left;margin-bottom: 1rem; padding:0 0rem;opacity:1;background:white;" >
         <h6 style="float:left;">题目：</h6>
         <h6 style="float:right;">1/30</h6>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{questionBO.content}}</p>
       </div>
-      <div style="width:100%; height: 25rem; text-align:left;margin-bottom: 1rem; padding:0 2rem;opacity:1;background:white;" >
-        <checklist ref="demoObject" :title="'选择答案'" :options="questionBO.questionOptionBOs" v-model="objectListValue" @on-change="change"></checklist>
+      <div style="width:100%; height: 25rem; text-align:left;margin-bottom: 1rem; padding:0 0rem;opacity:1;background:white;" >
+        <checklist ref="demoObject" :title="'选择答案'" :options="questionBO.questionOptionBOs" v-model="questionBO.examAnswerBO.choices" @on-change="change"></checklist>
       </div>
       <x-button type="primary"  @click.native="nextQuestion" style="width:80%;height: 4rem; margin-top: 2rem;">下一题</x-button>
     </div>
@@ -26,7 +26,6 @@
     props:[],
     data () {
       return {
-        examId:null,
         questionBO:{
           questinBankId:null,
           id:null,
@@ -44,18 +43,20 @@
           },
           examAnswerBO:{
             examId:null,
-            questinBankId:null,
+            questionBankId:null,
             questionId:null,
-            choices:null,
+            choices:[],
             score:null
           },
           questionOptionBOs:[{key: '1', value: '001 value'}]
         },
-        objectListValue:null
       }
     },
-    mounted: function () {debugger
-      this.questionBO = this.$route.params.questionBO;
+    mounted: function () {
+
+      let questionBO = this.$route.params;
+      questionBO.questionOptionBOs = questionBO.questionOptionBOs.map(i=>{return {key:i.letter,value:i.content}});
+      this.questionBO = questionBO
       var that = this;
 //      this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/question/saveAndNext`,params)
 //        .then(function(response) {
@@ -91,6 +92,41 @@
     },
     methods : {
       nextQuestion : function(){
+
+        var that = this
+        that.$axios.post(`http://mumschool.ngrok.xiaomiqiu.cn/exam/next`,this.questionBO.examAnswerBO).then(function(response) {
+          let resp = response.data;
+          alert(JSON.stringify(resp))
+          if (resp.success){
+            if (resp.data != null){
+              that.questionBO = resp.data
+              return
+            }else{
+              that.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/exam/finish`,that.questionBO.examBO.id).then(function(response) {
+                let resp = response.data;
+                if (resp.success){
+                  let score = resp.data
+                  alert(JSON.stringify(score))
+                  if (score >= 90){
+                    that.$router.push({name: 'ExamPass',params:score})
+                  }else{
+                    that.$router.push({name: 'ExamNoPass',params:score})
+                  }
+                }
+              }).catch(function(response) {
+                // 这里是处理错误的回调
+                alert(JSON.stringify(response))
+              });
+            }
+            return
+          }else {
+            alert("取下一题失败！")
+          }
+        }).catch(function(response) {
+          // 这里是处理错误的回调
+          alert(JSON.stringify(response))
+        });
+
         this.$router.push({name: 'Question',params: this.questionBO.examAnswerBO})
       },
       change : function() {

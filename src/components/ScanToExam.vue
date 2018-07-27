@@ -12,13 +12,13 @@
     name: 'ScanToExam',
     data () {
       return {
-        questionBrankId:1,
+        questionBankId:1,
         questionBankContent: '',
       }
     },
-    mounted:  function () {debugger
+    mounted:  function () {
       var that = this;
-      this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/questionBank/${this.questionBrankId}`)
+      this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/questionBank/${this.questionBankId}`)
         .then(function(response) {
           that.questionBankContent = response.data.content;
         })
@@ -26,6 +26,30 @@
     methods : {
       scanClick : function(){
         var that =this;
+///////pc测试
+        let params ={
+          questionBankId : 1,
+          qrVerifyCode : '1234567890'
+        }
+        alert("扫描结果："+JSON.stringify(params));
+        that.$axios.post(`http://mumschool.ngrok.xiaomiqiu.cn/exam/begin`,params).then(function(response) {
+          let resp = response.data;
+          if (resp.success){
+            let params2 = resp.data
+            alert(JSON.stringify(params2))
+            that.$router.push({name: 'Question',params:params2})
+            return
+          }
+        }).catch(function(response) {
+          // 这里是处理错误的回调
+          alert(JSON.stringify(response))
+        });
+        return;
+/////////
+
+
+
+
         //这里【url参数一定是去参的本网址】
         this.$axios.get("http://mumschool.ngrok.xiaomiqiu.cn/mumschool/sys/getSignature?pageUrl=http://mumschool-front.ngrok.xiaomiqiu.cn/scanToExam")
           .then(function(response) {
@@ -74,10 +98,10 @@
               }
               alert("扫描结果："+JSON.stringify(params));
               that.$axios.post(`http://mumschool.ngrok.xiaomiqiu.cn/exam/begin`,params).then(function(response) {
-                alert(JSON.stringify(response))
                 let resp = response.data;
                 if (resp.success){
-                  let params2 = resp.data.question
+                  let params2 = resp.data
+                  alert(JSON.stringify(params2))
                   that.$router.push({name: 'Question',params:params2})
                   return
                 }
@@ -92,6 +116,7 @@
     },
     //created() {
     beforeCreate() {
+      return
       debugger;
       var that = this;
       this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/ifOpenid`).then(function(response) {
