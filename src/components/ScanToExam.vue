@@ -27,24 +27,23 @@
       scanClick : function(){
         var that =this;
 ///////pc测试
-        let params ={
-          questionBankId : 1,
-          qrVerifyCode : '1234567890'
-        }
-        alert("扫描结果："+JSON.stringify(params));
-        that.$axios.post(`http://mumschool.ngrok.xiaomiqiu.cn/exam/begin`,params).then(function(response) {
-          let resp = response.data;
-          if (resp.success){
-            let params2 = resp.data
-            alert(JSON.stringify(params2))
-            that.$router.push({name: 'Question',params:params2})
-            return
-          }
-        }).catch(function(response) {
-          // 这里是处理错误的回调
-          alert(JSON.stringify(response))
-        });
-        return;
+//        let params ={
+//          questionBankId : 1,
+//          qrVerifyCode : '1234567890'
+//        }
+//        alert("扫描结果："+JSON.stringify(params));
+//        that.$axios.post(`http://mumschool.ngrok.xiaomiqiu.cn/exam/begin`,params).then(function(response) {
+//          let resp = response.data;
+//          if (resp.success){
+//            let params2 = resp.data
+//            that.$router.push({name: 'Question',params:params2})
+//            return
+//          }
+//        }).catch(function(response) {
+//          // 这里是处理错误的回调
+//          alert(JSON.stringify(response))
+//        });
+//        return;
 /////////
 
 
@@ -87,22 +86,24 @@
             success: function (qrRes) {
               alert("扫描结果："+JSON.stringify(qrRes));
               //window.location.href = qrRes.resultStr;//跳转到该页面///////////////////////////
-//              var reg=/^\d+\.\w+$/;   /*定义验证表达式*/
-//              if (reg.test(str) == null) {
-//                alert("二维码有误")
-//                return
-//              }
+              var reg=/^\d+\.\w+$/;   /*定义验证表达式*/
+
+              if (reg.test(qrRes.resultStr) == null) {
+                alert("二维码有误")
+                return
+              }
               let params ={
                 questionBankId : qrRes.resultStr.split(".")[0],
                 qrVerifyCode : qrRes.resultStr.split(".")[1]
               }
-              alert("扫描结果："+JSON.stringify(params));
               that.$axios.post(`http://mumschool.ngrok.xiaomiqiu.cn/exam/begin`,params).then(function(response) {
                 let resp = response.data;
                 if (resp.success){
                   let params2 = resp.data
-                  alert(JSON.stringify(params2))
                   that.$router.push({name: 'Question',params:params2})
+                  return
+                }else {
+                  alert(resp.message);
                   return
                 }
               }).catch(function(response) {
@@ -116,8 +117,6 @@
     },
     //created() {
     beforeCreate() {
-      return
-      debugger;
       var that = this;
       this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/ifOpenid`).then(function(response) {
         let hasOpenid = response.data;

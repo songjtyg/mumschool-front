@@ -21,7 +21,7 @@ Vue.use(VueJsonp)
 // Vue.component(Button.name, Button)
 // Vue.component(Field.name, Field)
 
-import { WechatPlugin, Group,XButton, XInput,Radio,Checklist} from 'vux'
+import { WechatPlugin, Group,XButton, XInput,Radio,Checklist,Selector} from 'vux'
 
 
 Vue.use(WechatPlugin)
@@ -30,6 +30,7 @@ Vue.component('x-button', XButton)
 Vue.component('x-input', XInput)
 Vue.component('radio', Radio)
 Vue.component('checklist', Checklist)
+Vue.component('selector', Selector)
 
 /* eslint-disable no-new */
 new Vue({

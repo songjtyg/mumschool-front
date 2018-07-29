@@ -3,16 +3,16 @@
     <advertisement></advertisement>
     <div style="width:85%; height: 28rem; margin-top: 0.5rem; background: white;opacity: 1;" >
       <group title="">
-        <x-input title="姓名" v-model="registerDto.userName" placeholder="请输入姓名"  required></x-input>
+        <x-input title="名称" v-model="registerDto.userName" placeholder="请输入名称" required></x-input>
         <x-input title="密码" v-model="registerDto.password" placeholder="请输入密码" type="password" :min="6" :max="6" @on-change="change" style="height: 2rem;" required></x-input>
-        <x-input title="单位" v-model="registerDto.hospital" placeholder="请输入单位" :min="2" :max="5" required></x-input>
-        <x-input title="科室"  v-model="registerDto.department" placeholder="请输入科室" :min="2" :max="5" required></x-input>
+        <selector title="孕周" v-model="registerDto.gestationalWeeks" :options="gestationalWeeksList" required></selector>
+        <x-input title="预产医院"  v-model="registerDto.preHospital" placeholder="预产医院" :min="2" :max="5" required></x-input>
         <x-input title="手机号码" v-model="registerDto.phone" placeholder="请输入手机号" keyboard="number" is-type="china-mobile"  mask="999 9999 9999"  required></x-input>
         <x-input title="验证码" v-model="registerDto.verifyCode" class="weui-vcode" required>
           <x-button slot="right" type="primary" :disabled = "smsSended" @click.native="sendSmsVerifyCode" mini >发送验证码</x-button>
         </x-input>
       </group>
-    </div>
+  </div>
     <div style="width:85%; height: 1rem; margin: 1rem 0 0 1rem;text-align: left;">
       <a  href="http://mumschool-front.ngrok.xiaomiqiu.cn/login" style="color:white;font-size: 1.2rem;">已有账号?去登陆</a>
     </div>
@@ -28,7 +28,7 @@
 <script>
   import Advertisement from './Advertisement'
   export default {
-    name: 'RegisterDoctor',
+    name: 'RegisterPregnant',
     components:{
       'advertisement':Advertisement,
     },
@@ -37,23 +37,24 @@
         msg: '妈妈校园',
         buttonDown:false,
         smsSended:false,
+        gestationalWeeksList: [{key: 3, value: '<4周'}, {key: 4, value: '4周'}, {key: 5, value: '5周'}, {key: 6, value: '6周'},
+                               {key: 7, value: '7周'},{key: 8, value: '8周'},{key: 41, value: '>大于40周'}],
         registerDto:{
-          userType:1,
+          userType:2,
           userName:null,
           password:null,
-          hospital:null,
-          department:null,
+          hospital:null,//
+          department:null,//
           phone:null,
-
-          gestationalWeeks:null,//
-          preHospital:null//
+          gestationalWeeks:null,
+          preHospital:null
         }
       }
     },
     computed:{
       disabled: function () {
-        return !(this.registerDto.userName && this.registerDto.password  && this.registerDto.hospital
-                  && this.registerDto.department && this.registerDto.verifyCode) || this.buttonDown
+        return !(this.registerDto.userName && this.registerDto.password && this.registerDto.phone
+                 && this.registerDto.gestationalWeeks && this.registerDto.preHospital && this.registerDto.verifyCode) || this.buttonDown
       }
     },
     mounted: function () {

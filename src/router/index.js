@@ -3,9 +3,12 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Cap from '@/components/Cap'
 import Advertisement from '@/components/Advertisement'
+import First from '@/components/First'
 import Login from '@/components/Login'
-import Register from '@/components/Register'
+import RegisterOption from '@/components/RegisterOption'
 import RegisterDoctor from '@/components/RegisterDoctor'
+import RegisterPregnant from '@/components/RegisterPregnant'
+import RegisterMum from '@/components/RegisterMum'
 import ScanToExam from '@/components/ScanToExam'
 import Question from '@/components/Question'
 import ExamPass from '@/components/ExamPass'
@@ -17,8 +20,12 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      component: First
+    },
+    {
+      path: '/first',
+      name: 'First',
+      component: First
     },
     {
       path: '/cap',
@@ -37,16 +44,28 @@ export default new Router({
       // component: () => import('@/components/Login')
     },
     {
-      path: '/register',
-      name: 'Register',
-      component: Register
-      // component: () => import('@/components/Register')
+      path: '/registerOption',
+      name: 'RegisterOption',
+      component: RegisterOption
+      // component: () => import('@/components/RegisterOption')
     },
     {
       path: '/registerDoctor',
       name: 'RegisterDoctor',
       component: RegisterDoctor
       // component: () => import('@/components/RegisterDoctor')
+    },
+    {
+      path: '/registerPregnant',
+      name: 'RegisterPregnant',
+      component: RegisterPregnant
+      // component: () => import('@/components/RegisterPregnant')
+    },
+    {
+      path: '/registerMum',
+      name: 'RegisterMum',
+      component: RegisterMum
+      // component: () => import('@/components/RegisterMum')
     },
     {
       path: '/scanToExam',

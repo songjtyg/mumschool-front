@@ -97,5 +97,11 @@ const webpackConfig ={
   }
 }
 module.exports = vuxLoader.merge(webpackConfig, {
-  plugins: ['vux-ui']
+  plugins: [//为了字体修改了这里songjt
+    {name:'vux-ui'},
+    {
+      name: 'less-theme',
+      path: 'src/styles/theme.less' // 相对项目根目录路径
+    }
+  ]
 })

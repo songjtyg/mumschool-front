@@ -13,7 +13,7 @@
       <div style="width:100%; height: 25rem; text-align:left;margin-bottom: 1rem; padding:0 0rem;opacity:1;background:white;" >
         <checklist ref="demoObject" :title="'选择答案'" :options="questionBO.questionOptionBOs" v-model="questionBO.examAnswerBO.choices" @on-change="change"></checklist>
       </div>
-      <x-button type="primary"  @click.native="nextQuestion" style="width:80%;height: 4rem; margin-top: 2rem;">下一题</x-button>
+      <x-button type="primary"  @click.native="nextQuestion" :disabled="!(questionBO != null && questionBO.examAnswerBO.choices != null && questionBO.examAnswerBO.choices.length > 0)" style="width:80%;height: 4rem; margin-top: 2rem;">下一题</x-button>
     </div>
   </div>
 </template>
@@ -48,7 +48,7 @@
             choices:[],
             score:null
           },
-          questionOptionBOs:[{key: '1', value: '001 value'}]
+          questionOptionBOs:[]//{key: '1', value: '001 value'}
         },
       }
     },
@@ -96,21 +96,22 @@
         var that = this
         that.$axios.post(`http://mumschool.ngrok.xiaomiqiu.cn/exam/next`,this.questionBO.examAnswerBO).then(function(response) {
           let resp = response.data;
-          alert(JSON.stringify(resp))
           if (resp.success){
             if (resp.data != null){
-              that.questionBO = resp.data
+              let questionBO = resp.data
+              questionBO.questionOptionBOs = questionBO.questionOptionBOs.map(i=>{return {key:i.letter,value:i.content}});
+              that.questionBO = questionBO
               return
             }else{
-              that.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/exam/finish`,that.questionBO.examBO.id).then(function(response) {
+              let params = {examId:that.questionBO.examBO.id}
+              that.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/exam/finish`,{ params:params}).then(function(response) {
                 let resp = response.data;
                 if (resp.success){
-                  let score = resp.data
-                  alert(JSON.stringify(score))
-                  if (score >= 90){
-                    that.$router.push({name: 'ExamPass',params:score})
+                  let params = {score:resp.data}
+                  if (params.score >= 6){
+                    that.$router.push({name: 'ExamPass',params:params})
                   }else{
-                    that.$router.push({name: 'ExamNoPass',params:score})
+                    that.$router.push({name: 'ExamNoPass',params:params})
                   }
                 }
               }).catch(function(response) {
