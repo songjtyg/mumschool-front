@@ -5,6 +5,7 @@ import Cap from '@/components/Cap'
 import Advertisement from '@/components/Advertisement'
 import First from '@/components/First'
 import Login from '@/components/Login'
+import ResetPassword from '@/components/ResetPassword'
 import RegisterOption from '@/components/RegisterOption'
 import RegisterDoctor from '@/components/RegisterDoctor'
 import RegisterPregnant from '@/components/RegisterPregnant'
@@ -42,6 +43,12 @@ export default new Router({
       name: 'Login',
       component: Login
       // component: () => import('@/components/Login')
+    },
+    {
+      path: '/resetPassword',
+      name: 'ResetPassword',
+      component: ResetPassword
+      // component: () => import('@/components/ResetPassword')
     },
     {
       path: '/registerOption',

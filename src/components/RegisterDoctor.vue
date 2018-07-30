@@ -36,7 +36,6 @@
       return {
         msg: '妈妈校园',
         buttonDown:false,
-        smsSended:false,
         smsButtonDown:false,
         registerDto:{
           userType:1,

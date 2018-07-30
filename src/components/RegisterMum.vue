@@ -43,7 +43,6 @@
         msg: '妈妈校园',
         buttonDown:false,
         genderList: [{key: 0, value: '女'}, {key: 1, value: '男'}],
-        smsSended:false,
         smsButtonDown:false,
         registerDto:{
           userType:3,

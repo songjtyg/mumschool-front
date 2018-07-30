@@ -8,7 +8,7 @@
           </group>
     </div>
     <div flex="dir:left main:right cross:center "  style="width:85%; height: 2rem; margin-top: 1rem;">
-        <img slot="icon" src="../assets/images/lock.png"  style="width:1.5rem;height:1.5rem"/><a href="http://mumschool-front.ngrok.xiaomiqiu.cn/first" style="color:white;font-size: 1.2rem;">忘记密码</a>
+        <img slot="icon" src="../assets/images/lock.png"  style="width:1.5rem;height:1.5rem"/><a href="http://mumschool-front.ngrok.xiaomiqiu.cn/resetPassword" style="color:white;font-size: 1.2rem;">忘记密码</a>
     </div>
     <div style="width:85%; height: 8rem; margin-top: 1rem;">
       <x-button type="primary"  @click.native="login" :disabled="disabledLoginButton" >登录</x-button>
