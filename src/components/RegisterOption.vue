@@ -9,7 +9,7 @@
     <div flex="dir:left main:left cross:center "  style="width:80%; height: 2rem; margin-bottom: 1rem;">
       <img slot="icon" src="../assets/images/lock.png"  style="width:1.5rem;height:1.5rem"/><a style="color:white;">已有账号？去登陆</a>
     </div>
-    <x-button type="primary"  @click.native="toRegister"  style="width:80%; margin-bottom: 1rem;">下一步</x-button>
+    <x-button type="primary" :disabled="disabledNextButton" @click.native="toRegister"  style="width:80%; margin-bottom: 1rem;">下一步</x-button>
   </div>
 </template>
 
@@ -38,6 +38,11 @@
           value: '    我是宝妈    '
         }]
       }
+    },
+    computed:{
+      disabledNextButton: function () {
+        return _.isNil(this.userType)
+      },
     },
     mounted: function () {
       bus.$emit('appointmentOpened', '1');

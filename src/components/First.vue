@@ -32,7 +32,7 @@
     beforeCreate() {
       debugger
       var that = this;
-      this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/ifOpenid`).then(function(response) {
+      this.$axios.get(`${process.env.BACKSTAGE_HOST}/weixinUser/ifOpenid`).then(function(response) {
         let hasOpenid = response.data;
         if (hasOpenid){
           //alert("有openid了")
@@ -41,7 +41,7 @@
           let code = that.$route.query.code
           if (code) {
             //alert('有code:'+code)
-            that.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/setOpenid/${code}`).then(function(response) {
+            that.$axios.get(`${process.env.BACKSTAGE_HOST}/weixinUser/setOpenid/${code}`).then(function(response) {
               //alert('设置openid成功：'+response.data)
             }).catch(function(response) {
               // 这里是处理错误的回调

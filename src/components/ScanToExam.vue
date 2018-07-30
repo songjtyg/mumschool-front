@@ -18,7 +18,7 @@
     },
     mounted:  function () {
       var that = this;
-      this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/questionBank/${this.questionBankId}`)
+      this.$axios.get(`${process.env.BACKSTAGE_HOST}/questionBank/${this.questionBankId}`)
         .then(function(response) {
           that.questionBankContent = response.data.content;
         })
@@ -32,7 +32,7 @@
 //          qrVerifyCode : '1234567890'
 //        }
 //        alert("扫描结果："+JSON.stringify(params));
-//        that.$axios.post(`http://mumschool.ngrok.xiaomiqiu.cn/exam/begin`,params).then(function(response) {
+//        that.$axios.post(`${process.env.BACKSTAGE_HOST}/exam/begin`,params).then(function(response) {
 //          let resp = response.data;
 //          if (resp.success){
 //            let params2 = resp.data
@@ -50,7 +50,7 @@
 
 
         //这里【url参数一定是去参的本网址】
-        this.$axios.get("http://mumschool.ngrok.xiaomiqiu.cn/mumschool/sys/getSignature?pageUrl=http://mumschool-front.ngrok.xiaomiqiu.cn/scanToExam")
+        this.$axios.get(`${process.env.BACKSTAGE_HOST}/mumschool/sys/getSignature?pageUrl=${process.env.FRONT_HOST}/scanToExam`)
           .then(function(response) {
               that.$wechat.config({
                 // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -96,7 +96,7 @@
                 questionBankId : qrRes.resultStr.split(".")[0],
                 qrVerifyCode : qrRes.resultStr.split(".")[1]
               }
-              that.$axios.post(`http://mumschool.ngrok.xiaomiqiu.cn/exam/begin`,params).then(function(response) {
+              that.$axios.post(`${process.env.BACKSTAGE_HOST}/exam/begin`,params).then(function(response) {
                 let resp = response.data;
                 if (resp.success){
                   let params2 = resp.data
@@ -118,7 +118,7 @@
     //created() {
     beforeCreate() {
       var that = this;
-      this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/ifOpenid`).then(function(response) {
+      this.$axios.get(`${process.env.BACKSTAGE_HOST}/weixinUser/ifOpenid`).then(function(response) {
         let hasOpenid = response.data;
         if (hasOpenid){
           //alert("有openid了")
@@ -127,7 +127,7 @@
           let code = that.$route.query.code
           if (code) {
             //alert('有code:'+code)
-            that.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/setOpenid/${code}`).then(function(response) {
+            that.$axios.get(`${process.env.BACKSTAGE_HOST}/weixinUser/setOpenid/${code}`).then(function(response) {
               //alert('设置openid成功：'+response.data)
             }).catch(function(response) {
               // 这里是处理错误的回调
@@ -136,7 +136,7 @@
           }else{
             //alert('跳转微信服务器获取code')
             window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx33c840e0ffad7c2e&redirect_uri='
-              +encodeURIComponent('http://mumschool-front.ngrok.xiaomiqiu.cn/scanToExam')+'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
+              +encodeURIComponent(`${process.env.FRONT_HOST}/scanToExam`)+'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
           }
         }
       }).catch(function(response) {

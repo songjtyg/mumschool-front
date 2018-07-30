@@ -17,7 +17,7 @@
     },
     methods:{
       testCall(){
-        this.$axios.post('http://mumschool.ngrok.xiaomiqiu.cn/mumschool/menu/login', {a:'1'} ,{
+        this.$axios.post(`${process.env.BACKSTAGE_HOST}/mumschool/menu/login`, {a:'1'} ,{
             headers: {
               "Content-Type": "application/json;charset=utf-8"
             }

@@ -1,7 +1,7 @@
 <template xmlns:style="http://www.w3.org/1999/xhtml">
   <div flex="dir:top main:left cross:center " style="width:100%; height: 55rem; background-color:rgb(229,229,229);opacity: 1">
-    <div style="width:100%;height:2rem;text-align: center;margin-top: 4rem;" >
-      恭喜您，通过当前考试！
+    <div style="width:100%;height:2rem;text-align: center;margin-top: 4rem;font-size: 1.6rem;" >
+      恭喜您，您的得分是{{score}}，通过当前考试！
     </div>
     <div class="happy">
     </div>

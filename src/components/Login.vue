@@ -11,7 +11,7 @@
         <img slot="icon" src="../assets/images/lock.png"  style="width:1.5rem;height:1.5rem"/><a href="http://mumschool-front.ngrok.xiaomiqiu.cn/first" style="color:white;font-size: 1.2rem;">忘记密码</a>
     </div>
     <div style="width:85%; height: 8rem; margin-top: 1rem;">
-      <x-button type="primary"  @click.native="login" :disabled="disabled" >登录</x-button>
+      <x-button type="primary"  @click.native="login" :disabled="disabledLoginButton" >登录</x-button>
       <x-button type="primary"  @click.native="toRegisterOption">新用户注册</x-button>
     </div>
 
@@ -39,8 +39,8 @@
       }
     },
     computed:{
-      disabled: function () {
-        return !(this.loginDTO.loginWord && this.loginDTO.password) && !this.buttonDown
+      disabledLoginButton: function () {
+        return _.isNil(this.loginDTO.loginWord) || _.isNil(this.loginDTO.password) || this.buttonDown
       }
     },
     methods:{
@@ -59,7 +59,7 @@
       login () {debugger;
         this.buttonDown = true;
         var that = this
-        this.$axios.post('http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/login',this.loginDTO)
+        this.$axios.post(`${process.env.BACKSTAGE_HOST}/weixinUser/login`,this.loginDTO)
           .then(function(response) {
               if (response.data.success){
                  that.$router.push({name: 'ScanToExam'})
@@ -98,7 +98,7 @@
       debugger;
       return;
       var that = this;
-      this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/ifOpenid`).then(function(response) {
+      this.$axios.get(`${process.env.BACKSTAGE_HOST}/weixinUser/ifOpenid`).then(function(response) {
         let hasOpenid = response.data;
         if (hasOpenid){
           //alert("有openid了")
@@ -107,7 +107,7 @@
           let code = that.$route.query.code
           if (code) {
             //alert('有code:'+code)
-            that.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/weixinUser/setOpenid/${code}`).then(function(response) {
+            that.$axios.get(`${process.env.BACKSTAGE_HOST}/weixinUser/setOpenid/${code}`).then(function(response) {
               //alert('设置openid成功：'+response.data)
             }).catch(function(response) {
               // 这里是处理错误的回调
@@ -116,7 +116,7 @@
           }else{
             //alert('跳转微信服务器获取code')
             window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx33c840e0ffad7c2e&redirect_uri='
-              +encodeURIComponent('http://mumschool-front.ngrok.xiaomiqiu.cn/login')+'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
+              +encodeURIComponent(`${process.env.FRONT_HOST}/login`)+'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
           }
         }
       }).catch(function(response) {

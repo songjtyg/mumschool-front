@@ -58,12 +58,12 @@
       questionBO.questionOptionBOs = questionBO.questionOptionBOs.map(i=>{return {key:i.letter,value:i.content}});
       this.questionBO = questionBO
       var that = this;
-//      this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/question/saveAndNext`,params)
+//      this.$axios.get(`${process.env.BACKSTAGE_HOST}/question/saveAndNext`,params)
 //        .then(function(response) {
 //          if (response.data.success){
 //            that.question = response.data;
 //            //查询
-//            this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/questionChoice/questionId/${this.questionId}`)
+//            this.$axios.get(`${process.env.BACKSTAGE_HOST}/questionChoice/questionId/${this.questionId}`)
 //              .then(function(response) {debugger
 //                let choices = response.data
 //                let options = choices.map(function(item){
@@ -75,7 +75,7 @@
 //                that.questionOptionBOs = options;
 //              })
 //          }else{//如果查询不到下一个问题，则认为考试结束，调用计算成绩接口
-//            this.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/${this.examId}`)
+//            this.$axios.get(`${process.env.BACKSTAGE_HOST}/${this.examId}`)
 //              .then(function(response) {debugger
 //                if (response.data.success){
 //                  if (response.data.data.score >= 90){
@@ -94,7 +94,7 @@
       nextQuestion : function(){
 
         var that = this
-        that.$axios.post(`http://mumschool.ngrok.xiaomiqiu.cn/exam/next`,this.questionBO.examAnswerBO).then(function(response) {
+        that.$axios.post(`${process.env.BACKSTAGE_HOST}/exam/next`,this.questionBO.examAnswerBO).then(function(response) {
           let resp = response.data;
           if (resp.success){
             if (resp.data != null){
@@ -104,7 +104,7 @@
               return
             }else{
               let params = {examId:that.questionBO.examBO.id}
-              that.$axios.get(`http://mumschool.ngrok.xiaomiqiu.cn/exam/finish`,{ params:params}).then(function(response) {
+              that.$axios.get(`${process.env.BACKSTAGE_HOST}/exam/finish`,{ params:params}).then(function(response) {
                 let resp = response.data;
                 if (resp.success){
                   let params = {score:resp.data}

@@ -9,19 +9,21 @@ Vue.config.debug = true // 开启debug模式
 import App from './App'
 import router from './router'
 
+var _ = require('lodash');
+
 import axios from 'axios'
 axios.defaults.withCredentials = true // 缺省在调用时带上session
 Vue.prototype.$axios = axios// 其他页面在使用axios的时候直接  this.$axios就可以了
 
-import VueJsonp from 'vue-jsonp'
-Vue.use(VueJsonp)
+// import VueJsonp from 'vue-jsonp'
+// Vue.use(VueJsonp)
 
 
 // import { Field, Button} from 'mint-ui'// 按需引入部分组件
 // Vue.component(Button.name, Button)
 // Vue.component(Field.name, Field)
 
-import { WechatPlugin, Group,XButton, XInput,Radio,Checklist,Selector} from 'vux'
+import { WechatPlugin, Group,XButton, XInput,Radio,Checklist,Selector,Datetime} from 'vux'
 
 
 Vue.use(WechatPlugin)
@@ -31,6 +33,7 @@ Vue.component('x-input', XInput)
 Vue.component('radio', Radio)
 Vue.component('checklist', Checklist)
 Vue.component('selector', Selector)
+Vue.component('datetime', Datetime)
 
 /* eslint-disable no-new */
 new Vue({
