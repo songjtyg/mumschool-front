@@ -1,12 +1,6 @@
 <template>
-  <div flex="main:center cross:center" style="width:100%; height: 8rem; opacity: 1">
-    <x-input title="姓名"  placeholder="请输入姓名" :min="1" :max="32" required></x-input>
-    qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
-    <swiper loop auto :list="demo06_list" :index="demo06_index" ></swiper>
-    wwwwwwwwwwwwwwwwwwwwwwwwwww@on-index-change="demo06_onIndexChange"
-    <x-input title="姓名1"  placeholder="请输入姓名1" :min="1" :max="32" required></x-input>
-    <!--<div class="advertisement">-->
-      <!--</div>-->
+  <div style="height: 12rem">
+    <swiper loop auto height="10rem" :list="demo06_list" :index="demo06_index" @on-index-change="demo06_onIndexChange"></swiper>
   </div>
 </template>
 
@@ -21,10 +15,17 @@
     title: '送你一辆车'
   }, {
     url: 'javascript:',
-    img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg', // 404
+    img: 'https://static.vux.li/demo/5.jpg', // 404
     title: '送你一次旅行',
-    fallbackImg: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg'
+    fallbackImg: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg'
   }]
+
+  const imgList = [
+    'http://placeholder.qiniudn.com/800x300/FF3B3B/ffffff',
+    'http://placeholder.qiniudn.com/800x300/FFEF7D/ffffff',
+    'http://placeholder.qiniudn.com/800x300/8AEEB1/ffffff'
+  ]
+
   const urlList = baseList.map((item, index) => ({
     url: 'http://m.baidu.com',
     img: item.img,
@@ -33,40 +34,53 @@
   }))
 
   export default {
-    name: 'Advertisement',
-    data () {
-      return {
-        msg: '妈妈校园',
-        demo06_list: urlList,
-        demo06_index: 0,
-
-        demo01_list: baseList,
-        demo02_index: 1,
-      }
-    },
-    methods:{
-//      demo06_onIndexChange (index) {
-//        this.demo06_index = index
-//      },
-      demo01_onIndexChange (index) {
-        this.demo01_index = index
+    name:'Advertisiment',
+    methods: {
+      demo06_onIndexChange (index) {
+        this.demo06_index = index
       },
     },
-    mounted: function () {
-    },
+    data () {
+      return {
+        demo01_list: baseList,
+        demo06_list: urlList,
+        demo06_index: 0,
+      }
+    }
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .advertisement{
+  .text-scroll p{
+    font-size: 12px;
+    text-align: center;
+    line-height: 30px;
+  }
+
+  @-webkit-keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .fadeInUp {
+    animation-name: fadeInUp;
+  }
+  .swiper-demo-img img {
     width: 100%;
-    height: 100%;
-    opacity: 1;
-    /*background:url(../assets/images/advertisement.png) no-repeat 0 0;*/
-    background-size: 100% 100%;
-    background-position: center center;
-    /*background-position: center center;*/
-    /*background-clip:border-box;*/
   }
 </style>
