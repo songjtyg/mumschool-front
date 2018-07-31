@@ -23,7 +23,7 @@ Vue.prototype.$axios = axios// 其他页面在使用axios的时候直接  this.$
 // Vue.component(Button.name, Button)
 // Vue.component(Field.name, Field)
 
-import { WechatPlugin, Group,XButton, XInput,Radio,Checklist,Selector,Datetime} from 'vux'
+import { WechatPlugin, Group,XButton, XInput,Radio,Checklist,Selector,Datetime,Swiper,SwiperItem} from 'vux'
 
 
 Vue.use(WechatPlugin)
@@ -34,6 +34,8 @@ Vue.component('radio', Radio)
 Vue.component('checklist', Checklist)
 Vue.component('selector', Selector)
 Vue.component('datetime', Datetime)
+Vue.component('swiper', Swiper)
+Vue.component('swiperItem', SwiperItem)
 
 /* eslint-disable no-new */
 new Vue({

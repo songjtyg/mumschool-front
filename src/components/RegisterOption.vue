@@ -45,7 +45,6 @@
       },
     },
     mounted: function () {
-      bus.$emit('appointmentOpened', '1');
     },
     methods:{
       toRegister () {debugger

@@ -1,7 +1,7 @@
 <template xmlns:style="http://www.w3.org/1999/xhtml">
   <div flex="dir:top main:left cross:center " style="width:100%; height: 55rem; ">
     <advertisement></advertisement>
-    <div style="width:85%; height: 14rem; margin-top: 5rem; background: white;opacity: 1;" >
+    <div style="width:85%; height: 15rem; margin-top: 5rem; background: white;opacity: 1;" >
       <group title="">
         <x-input title="验证码" v-model="resetDto.verifyCode" class="weui-vcode" required>
           <x-button slot="right" type="primary" :disabled = "smsButtonDown" @click.native="sendSmsVerifyCodeByRegPhone" mini >发送验证码</x-button>
@@ -10,7 +10,7 @@
         <x-input title="请重新输入新密码" type="password" placeholder="（6位字符）" v-model="repeatPassword" :min="6" :max="6" :equal-with="resetDto.password" required></x-input>
       </group>
     </div>
-    <div style="width:85%; height: 4rem; margin-top: 1rem;">
+    <div style="width:85%; height: 4rem; margin-top: 2rem;">
       <x-button type="primary"  :disabled="disabledSubmitButton"  @click.native="resetPassword">提交</x-button>
     </div>
   </div>
@@ -26,8 +26,8 @@
     data () {
       return {
         msg: '妈妈校园',
-        resetButtonDown:false,
         smsButtonDown:false,
+        resetButtonDown:false,
         repeatPassword:null,
         resetDto:{
           password:null,

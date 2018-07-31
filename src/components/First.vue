@@ -49,8 +49,8 @@
             });
           }else{
             //alert('跳转微信服务器获取code')
-            window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx33c840e0ffad7c2e&redirect_uri='
-              +encodeURIComponent('http://mumschool-front.ngrok.xiaomiqiu.cn/first')+'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
+            window.location = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx33c840e0ffad7c2e&redirect_uri=`
+              +encodeURIComponent(`${process.env.BACKSTAGE_HOST}/first`)+`&response_type=code&scope=snsapi_base&state=1#wechat_redirect`;
           }
         }
       }).catch(function(response) {

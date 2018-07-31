@@ -3,9 +3,9 @@
     <advertisement></advertisement>
     <div style="width:85%; height: 28rem; margin-top: 0.5rem; background: white;opacity: 1;" >
       <group title="">
-        <x-input title="名称" v-model="registerDto.userName" placeholder="请输入名称" required></x-input>
+        <x-input title="名称" v-model="registerDto.userName" placeholder="请输入名称" :min="1" :max="32" required></x-input>
         <x-input title="密码" v-model="registerDto.password" placeholder="请输入密码" type="password" :min="6" :max="6" @on-change="change" style="height: 2rem;" required></x-input>
-        <selector title="宝宝性别" v-model="registerDto.gender" :options="genderList" required></selector>
+        <selector title="宝宝性别" v-model="registerDto.gender" :options="genderList" ></selector>
         <datetime
           v-model="registerDto.birthday"
           @on-change="change"
@@ -20,7 +20,7 @@
       </group>
     </div>
     <div style="width:85%; height: 1rem; margin: 1rem 0 0 1rem;text-align: left;">
-      <a  href="/login" style="color:white;font-size: 1.2rem;">已有账号?去登陆</a>
+      <router-link to="/login" style="color:white;font-size: 1.2rem;">已有账号?去登陆</router-link>
     </div>
     <div style="width:85%; height: 4rem; margin-top: 1rem;">
       <x-button type="primary"  :disabled="disabledSubmitButton"  @click.native="register">提交</x-button>
@@ -42,7 +42,7 @@
       return {
         msg: '妈妈校园',
         buttonDown:false,
-        genderList: [{key: 0, value: '女'}, {key: 1, value: '男'}],
+        genderList: [{key: 1, value: '男'},{key: 2, value: '女'}],
         smsButtonDown:false,
         registerDto:{
           userType:3,
@@ -62,14 +62,13 @@
     computed:{
       disabledSubmitButton: function () {
         return _.isNil(this.registerDto.userName) || _.isNil(this.registerDto.password) || this.registerDto.password.length <6 || _.isNil(this.registerDto.phone) || this.registerDto.phone.length != 11 ||
-                  _.isNil(this.registerDto.gender) || _.isNil(this.registerDto.birthday) || _.isNil(this.registerDto.verifyCode) || this.buttonDown
+                  _.isNil(this.registerDto.verifyCode) || this.buttonDown
       },
       disabledSmsButton: function () {
         return _.isNil(this.registerDto.phone) || this.smsButtonDown
       }
     },
     mounted: function () {
-      bus.$emit('appointmentOpened', '1');
     },
     methods:{
       userType () {

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <cap></cap>
+    <!--<cap></cap>-->
     <router-view/>
   </div>
 </template>
@@ -34,6 +34,6 @@ export default {
   -webkit-background-size: 100% 100%;
   -o-background-size: 100% 100%;
   background-position: center 0;
-  background-image: url(./assets/images/bg-birth.jpg);
+  /*background-image: url(./assets/images/bg-birth.jpg);*/
 }
 </style>
