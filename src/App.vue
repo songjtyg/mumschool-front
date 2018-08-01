@@ -1,18 +1,16 @@
 <template>
   <div id="app">
     <cap></cap>
-    <advertisement></advertisement>
     <router-view/>
   </div>
 </template>
 
 <script>
-  import  cap  from './components/Cap.vue'
-  import  advertisement  from './components/Advertisement.vue'
+  import  Cap  from './components/Cap.vue'
 export default {
   name: 'App',
   components:{
-    'cap': cap,
+    'cap': Cap,
   }
 }
 
@@ -35,6 +33,6 @@ export default {
   -webkit-background-size: 100% 100%;
   -o-background-size: 100% 100%;
   background-position: center 0;
-  /*background-image: url(./assets/images/bg-birth.jpg);*/
+  background-image: url(./assets/images/bg-birth.jpg);
 }
 </style>

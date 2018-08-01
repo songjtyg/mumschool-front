@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Cap from '@/components/Cap'
 import Advertisement from '@/components/Advertisement'
 import First from '@/components/First'
