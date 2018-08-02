@@ -20,8 +20,13 @@
       var that = this;
       this.$axios.get(`${process.env.BACKSTAGE_HOST}/questionBank/${this.questionBankId}`)
         .then(function(response) {
-          that.questionBankContent = response.data.content;
-        })
+          if (response.success){
+            that.questionBankContent = response.data;
+          }
+        }).catch(function(response) {
+          // 这里是处理错误的回调
+          alert(JSON.stringify(response))
+        });
     },
     methods : {
       scanClick : function(){
@@ -96,11 +101,11 @@
                 questionBankId : qrRes.resultStr.split(".")[0],
                 qrVerifyCode : qrRes.resultStr.split(".")[1]
               }
-              that.$axios.post(`${process.env.BACKSTAGE_HOST}/exam/begin`,params).then(function(response) {
+
+              that.$axios.post(`${process.env.BACKSTAGE_HOST}/questionBank/verifyAndSelect`,params).then(function(response) {
                 let resp = response.data;
                 if (resp.success){
-                  let params2 = resp.data
-                  that.$router.push({name: 'Question',params:params2})
+                  that.$router.push({name: 'Question',params:resp.data})
                   return
                 }else {
                   alert(resp.message);

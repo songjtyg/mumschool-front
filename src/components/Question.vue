@@ -26,12 +26,14 @@
     props:[],
     data () {
       return {
+        questionBankPO:{},
         questionBO:{
           questinBankId:null,
           id:null,
           type:null,
           content:null,
           score:null,
+          seq:null,
           examBO:{
             id:null,
             userId:null,
@@ -53,9 +55,25 @@
       }
     },
     mounted: function () {
-      let questionBO = this.$route.params;
-      questionBO.questionOptionBOs = questionBO.questionOptionBOs.map(i=>{return {key:i.letter,value:i.content}});
-      this.questionBO = questionBO
+      if (!_.isNil(this.$route.params)) {
+        this.questionBankPO = this.$route.params;
+      }
+
+      var that = this
+      this.$axios.post(`${process.env.BACKSTAGE_HOST}/exam/begin?questionBankId=${this.questionBankPO.id}`).then(function(response) {
+        if (response.data.success){
+          that.questionBO = response.data.data
+          questionBO.questionOptionBOs = questionBO.questionOptionBOs.map(i=>{return {key:i.letter,value:i.content}});
+          that.questionBO = questionBO
+          return
+        }else {
+          alert(response.data.message);
+          return
+        }
+      }).catch(function(response) {
+        // 这里是处理错误的回调
+        alert(JSON.stringify(response))
+      });
     },
     methods : {
       nextQuestion : function(){
@@ -83,18 +101,20 @@
               }).catch(function(response) {
                 // 这里是处理错误的回调
                 alert(JSON.stringify(response))
+                return
               });
             }
             return
           }else {
             alert("取下一题失败！")
+            return
           }
         }).catch(function(response) {
           // 这里是处理错误的回调
           alert(JSON.stringify(response))
+          return
         });
 
-        this.$router.push({name: 'Question',params: this.questionBO.examAnswerBO})
       },
       change : function() {
         return null
