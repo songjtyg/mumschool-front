@@ -101,10 +101,12 @@
                 questionBankId : qrRes.resultStr.split(".")[0],
                 qrVerifyCode : qrRes.resultStr.split(".")[1]
               }
-
               that.$axios.post(`${process.env.BACKSTAGE_HOST}/questionBank/verifyAndSelect`,params).then(function(response) {
                 let resp = response.data;
                 if (resp.success){
+                  that.$axios.get(`${process.env.BACKSTAGE_HOST}/exam/begin`,params.questionBankId).then(function(response) {
+                  ???
+
                   that.$router.push({name: 'Question',params:resp.data})
                   return
                 }else {
