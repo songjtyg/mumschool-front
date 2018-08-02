@@ -38,7 +38,7 @@
         buttonDown:false,
         smsButtonDown:false,
         gestationalWeeksList: [{key: 3, value: '<4周'}, {key: 4, value: '4周'}, {key: 5, value: '5周'}, {key: 6, value: '6周'},
-                               {key: 7, value: '7周'},{key: 8, value: '8周'},{key: 41, value: '>大于40周'}],
+                               {key: 7, value: '7周'},{key: 8, value: '8周'},{key: 41, value: '>40周'}],
         registerDto:{
           userType:2,
           userName:null,
