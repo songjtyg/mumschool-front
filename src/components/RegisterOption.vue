@@ -3,7 +3,7 @@
     <advertisement></advertisement>
     <div style="width:80%; height: 13rem; margin-top: 3rem; background: white;opacity: 1;" >
       <group>
-         <radio title="title"  :options="options" v-model="userType":selected-label-style="{color: '#FF9900'}" ></radio>
+        <checklist :options="options" v-model="userType" :max="1" @on-change="change"></checklist>
       </group>
     </div>
     <div flex="dir:left main:left cross:center "  style="width:80%; height: 2rem; margin-bottom: 1rem;">
@@ -24,19 +24,8 @@
       return {
         msg: '妈妈校园',
         userType: null,
-        options : [{
-          icon:require('../assets/images/i-am-doctor.png'),
-          key: '1',
-          value: '    我是医生    '
-        }, {
-          icon: require('../assets/images/i-am-pregnant.png'),
-          key: '2',
-          value: '    我是孕妇    '
-        }, {
-          icon: require('../assets/images/i-am-mum.png'),
-          key: '3',
-          value: '    我是宝妈    '
-        }]
+        options: [{key: '1', value: '我是医生'}, {key: '2', value: '我是孕妇'}, {key: '3', value: '我是宝妈'}],
+
       }
     },
     computed:{

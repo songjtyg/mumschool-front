@@ -18,10 +18,10 @@
     },
     mounted:  function () {
       var that = this;
-      this.$axios.get(`${process.env.BACKSTAGE_HOST}/questionBank/${this.questionBankId}`)
+      this.$axios.get(`${process.env.BACKSTAGE_HOST}/questionBank/${this.questionBankId}/content`)
         .then(function(response) {
-          if (response.success){
-            that.questionBankContent = response.data;
+          if (response.data.success){
+            that.questionBankContent = response.data.data;
           }
         }).catch(function(response) {
           // 这里是处理错误的回调
@@ -89,7 +89,7 @@
             needResult: 1,        // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
             scanType: ["qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
             success: function (qrRes) {
-              alert("扫描结果："+JSON.stringify(qrRes));
+              //alert("扫描结果："+JSON.stringify(qrRes));
               //window.location.href = qrRes.resultStr;//跳转到该页面///////////////////////////
               var reg=/^\d+\.\w+$/;   /*定义验证表达式*/
 
@@ -101,12 +101,9 @@
                 questionBankId : qrRes.resultStr.split(".")[0],
                 qrVerifyCode : qrRes.resultStr.split(".")[1]
               }
-              that.$axios.post(`${process.env.BACKSTAGE_HOST}/questionBank/verifyAndSelect`,params).then(function(response) {
+              that.$axios.post(`${process.env.BACKSTAGE_HOST}/exam/begin`,params).then(function(response) {
                 let resp = response.data;
                 if (resp.success){
-                  that.$axios.get(`${process.env.BACKSTAGE_HOST}/exam/begin`,params.questionBankId).then(function(response) {
-                  ???
-
                   that.$router.push({name: 'Question',params:resp.data})
                   return
                 }else {

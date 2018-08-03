@@ -79,7 +79,6 @@
       this.$axios.get(`${process.env.BACKSTAGE_HOST}/weixinUser/getCurrent`)
         .then(function(response) {
           if (response.data.success){
-            alert(JSON.stringify(response.data.data))
             that.graduateDTO.name = response.data.data.userName
             that.graduateDTO.department = response.data.data.department
             that.graduateDTO.hospital = response.data.data.hospital
