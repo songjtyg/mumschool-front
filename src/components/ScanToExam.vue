@@ -8,8 +8,10 @@
   </div>
 </template>
 <script>
+  //import assign from 'mixins/assign.js'
   export default {
     name: 'ScanToExam',
+    //mixins: [assign],
     data () {
       return {
         questionBankId:1,
@@ -30,33 +32,22 @@
     },
     methods : {
       scanClick : function(){
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+        var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        var pageUrl = ``
+        if (isAndroid) {
+          pageUrl =`${process.env.FRONT_HOST}/scanToExam`
+        }
+        if (isIOS) {
+          pageUrl = encodeURIComponent(this.GLOBAL.init_url)
+          //url = location.href.split('#')[0]  //hash后面的部分如果带上ios中config会不对
+        }
+
         var that =this;
-///////pc测试
-//        let params ={
-//          questionBankId : 1,
-//          qrVerifyCode : '1234567890'
-//        }
-//        alert("扫描结果："+JSON.stringify(params));
-//        that.$axios.post(`${process.env.BACKSTAGE_HOST}/exam/begin`,params).then(function(response) {
-//          let resp = response.data;
-//          if (resp.success){
-//            let params2 = resp.data
-//            that.$router.push({name: 'Question',params:params2})
-//            return
-//          }
-//        }).catch(function(response) {
-//          // 这里是处理错误的回调
-//          alert(JSON.stringify(response))
-//        });
-//        return;
-/////////
-
-
-
-
-        //这里【url参数一定是去参的本网址】
-        this.$axios.get(`${process.env.BACKSTAGE_HOST}/mumschool/sys/getSignature?pageUrl=${process.env.FRONT_HOST}/scanToExam`)
+        this.$axios.get(`${process.env.BACKSTAGE_HOST}/mumschool/sys/getSignature?pageUrl=${pageUrl}`)
           .then(function(response) {
+            //alert(JSON.stringify(response.data))
               that.$wechat.config({
                 // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                 debug: false,
@@ -69,7 +60,7 @@
                 // 必填，签名
                 signature: response.data.signature,
                 // 必填，需要使用的JS接口列表，所有JS接口列表
-                jsApiList: ['checkJsApi', 'scanQRCode']
+                jsApiList: ['checkJsApi','scanQRCode']
               });
             }),
 
@@ -139,7 +130,7 @@
             });
           }else{
             //alert('跳转微信服务器获取code')
-            window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx33c840e0ffad7c2e&redirect_uri='
+            window.location = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.WECHAT_APP_ID}&redirect_uri=`
               +encodeURIComponent(`${process.env.FRONT_HOST}/scanToExam`)+'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
           }
         }

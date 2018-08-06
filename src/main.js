@@ -9,6 +9,9 @@ Vue.config.debug = true // 开启debug模式
 import App from './App'
 import router from './router'
 
+import global_ from './components/Global'//引用文件
+Vue.prototype.GLOBAL = global_//挂载到Vue实例上面
+
 var _ = require('lodash');
 
 import axios from 'axios'

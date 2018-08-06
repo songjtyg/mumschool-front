@@ -19,6 +19,7 @@
       }
     },
     mounted:  function () {
+      this.GLOBAL.init_url = window.location.href;
     },
     methods : {
       toLogin : function(){
@@ -26,6 +27,7 @@
       },
       toScanToExam : function(){
         this.$router.push({name: 'ScanToExam'})
+        //window.location.href = `${process.env.FRONT_HOST}/scanToExam`
       }
     },
     //created() {
@@ -49,8 +51,11 @@
             });
           }else{
             //alert('跳转微信服务器获取code')
-            window.location = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx33c840e0ffad7c2e&redirect_uri=`
+            let location = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.WECHAT_APP_ID}&redirect_uri=`
               +encodeURIComponent(`${process.env.BACKSTAGE_HOST}/first`)+`&response_type=code&scope=snsapi_base&state=1#wechat_redirect`;
+            console.info(location)
+            alert(location)
+            window.location = location;
           }
         }
       }).catch(function(response) {

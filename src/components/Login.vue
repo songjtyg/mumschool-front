@@ -115,7 +115,7 @@
             });
           }else{
             //alert('跳转微信服务器获取code')
-            window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx33c840e0ffad7c2e&redirect_uri='
+            window.location = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.WECHAT_APP_ID}&redirect_uri=`
               +encodeURIComponent(`${process.env.FRONT_HOST}/login`)+'&response_type=code&scope=snsapi_base&state=1#wechat_redirect';
           }
         }

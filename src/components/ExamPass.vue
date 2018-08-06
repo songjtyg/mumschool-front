@@ -1,5 +1,5 @@
 <template xmlns:style="http://www.w3.org/1999/xhtml">
-  <div flex="dir:top main:left cross:center " style="width:100%; height: 55rem; background-color:rgb(229,229,229);opacity: 1">
+  <div flex="dir:top main:left cross:center " style="width:100%; height: 60rem; background-color:rgb(229,229,229);opacity: 1">
     <div style="width:100%;height:2rem;text-align: center;margin-top: 4rem;font-size: 1.6rem;" >
       恭喜您，您的得分是{{score}}，通过当前考试！
     </div>
@@ -20,11 +20,11 @@
       <div style="text-align: center;height: 5rem;">
         <h2>中国优生科学协会</h2>
       </div>
-      <div style="text-align: center;;height: 5rem;">
-        <h3>CERTIFICATE</h3>
+      <div style="text-align: center;;height: 4rem;">
+        <h3  style="font-size: 2.5rem;font-weight:bold;">CERTIFICATE</h3>
       </div>
       <div style="text-align: center;;height: 2rem;">
-        <h3>结业证书</h3>
+        <h3 style="font-size: 2.5rem;">结业证书</h3>
       </div>
       <div style="text-align: center; margin:2rem;">
         培训主题：{{'如何培养精英宝贝'}}
@@ -114,8 +114,8 @@
     background-position: center center;
   }
   .cert{
-    width: 80%;
-    height: 40rem;
+    width: 72%;
+    height: 35rem;
     margin: 1rem 0 1rem 1rem;
     opacity: 1;
     background-color: gray;
@@ -127,7 +127,7 @@
     height: 5rem;
     opacity: 1;
     background:url(../assets/images/cert-logo.png) no-repeat 0 0;
-    background-size: 50% 100%;
+    background-size: 100% 100%;
     background-position: center center;
   }
   .sign-logo{
@@ -135,7 +135,7 @@
     height: 5rem;
     opacity: 1;
     background:url(../assets/images/sign-logo.png) no-repeat 0 0;
-    background-size: 50% 100%;
+    background-size: 100% 100%;
     background-position: center center;
   }
 </style>
