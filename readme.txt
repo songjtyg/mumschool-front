@@ -31,3 +31,7 @@ vue-cli 单页面手机应用input点击手机端虚拟键盘弹出盖住input
 https://blog.csdn.net/happyElina/article/details/79900663
 //微信公众平台开发(83) 生成带参数二维码
 http://www.cnblogs.com/txw1958/p/weixin-qrcode-with-parameters.html1
+++++++++++++++++++++多页面配置+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+vue多页面 https://baijiahao.baidu.com/s?id=1592180635510348407&wfr=spider&for=pc
+vue 多页面 https://www.jb51.net/article/138575.htm
+webpack多页应用架构专题系列：https://array_huang.coding.me/webpack-book/   ；https://www.cnblogs.com/moqiutao/p/8522293.html

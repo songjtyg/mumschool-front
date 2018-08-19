@@ -13,6 +13,7 @@ import ScanToExam from '@/components/ScanToExam'
 import Question from '@/components/Question'
 import ExamPass from '@/components/ExamPass'
 import ExamNoPass from '@/components/ExamNopass'
+import MumToExam from '@/components/exam_mum/MumToExam'
 Vue.use(Router)
 
 export default new Router({
@@ -96,6 +97,12 @@ export default new Router({
       path: '/examNoPass',
       name: 'ExamNoPass',
       component: ExamNoPass
+      // component: () => import('@/components/RegisterDoctor')
+    },
+    {
+      path: '/exam_mum/mumToExam',
+      name: 'MumToExam',
+      component: MumToExam
       // component: () => import('@/components/RegisterDoctor')
     },
   ]
